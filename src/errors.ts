@@ -1,3 +1,4 @@
-export declare class ParserError<T extends string> {
+export declare class ParserError<ErrorMessage extends string> {
     _: 'ParserError'
+    message: ErrorMessage;
 }
