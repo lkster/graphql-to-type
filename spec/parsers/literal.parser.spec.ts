@@ -1,5 +1,5 @@
 import { Expect, Equal } from 'hotscript/dist/internals/helpers';
-import { BooleanLiteral, EnumLiteral, FloatLiteral, IntLiteral, ListLiteral, ObjectLiteral, ObjectLiteralField, ParseLiteral, StringLiteral } from '../../src/parser/literal.parser';
+import { BooleanLiteral, EnumLiteral, FloatLiteral, IntLiteral, ListLiteral, ObjectLiteral, ObjectLiteralField, ParseLiteral, StringLiteral, VariableLiteral } from '../../src/parser/literal.parser';
 import { ParserError } from '../../src/errors';
 
 
@@ -141,6 +141,36 @@ describe('Literal Parser', () => {
 
             type actual2 = ParseLiteral<'\n\n\n{ nested: }\t'>;
             type expected2 = ParserError<'Expected identifier, got "}"'>;
+
+            type test1 = Expect<Equal<actual1, expected1>>;
+            type test2 = Expect<Equal<actual2, expected2>>;
+        });
+    });
+
+    describe('parsing variable', () => {
+        it('should properly parse valid variable', () => {
+            type actual1 = ParseLiteral<'  $var'>;
+            type expected1 = [
+                VariableLiteral<'var'>,
+                '',
+            ];
+
+            type actual2 = ParseLiteral<'\n\n\n$v4r14bl3\t'>;
+            type expected2 = [
+                VariableLiteral<'v4r14bl3'>,
+                '\t',
+            ];
+
+            type test1 = Expect<Equal<actual1, expected1>>;
+            type test2 = Expect<Equal<actual2, expected2>>;
+        });
+
+        it('should return error if parsed variable is invalid', () => {
+            type actual1 = ParseLiteral<'  $0k '>;
+            type expected1 = ParserError<'Expected identifier, got "0"'>;
+
+            type actual2 = ParseLiteral<'\n\n\n$\t'>;
+            type expected2 = ParserError<'Expected identifier, got end of source'>;
 
             type test1 = Expect<Equal<actual1, expected1>>;
             type test2 = Expect<Equal<actual2, expected2>>;

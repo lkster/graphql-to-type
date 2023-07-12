@@ -20,6 +20,10 @@ export declare class FloatLiteral<Value extends string = string> extends ValueLi
 export declare class BooleanLiteral<Value extends string = string> extends ValueLiteral<'boolean', Value> {}
 export declare class EnumLiteral<Value extends string = string> extends ValueLiteral<'enum', Value> {}
 
+export declare class VariableLiteral<Name extends string = string> extends Literal<'variable'> {
+    name: Name;
+}
+
 export declare class ListLiteral<Values extends Literal[] = Literal[]> extends Literal<'list'> {
     values: Values;
 }
@@ -48,6 +52,8 @@ export type ParseLiteral<Source extends string> =
         ParseStringLiteral<Source>
     : Source extends `${boolean}${string}` ?
         ParseBooleanLiteral<Source>
+    : Source extends `$${string}` ?
+        ParseVariableLiteral<Source>
     : Source extends `[${string}` ?
         ParseListLiteral<Source>
     : Source extends `{${string}` ?
@@ -116,6 +122,13 @@ type ParseBooleanLiteral<Source extends string> =
             [BooleanLiteral<'false'>, tail]
         : ParseEnumLiteral<Source>
     : ParserError<`Expected boolean value`>;
+
+type ParseVariableLiteral<Source extends string> =
+    Source extends `$${infer tail}` ?
+        ParseIdentifier<tail> extends [infer identifier extends string, infer tail2 extends string] ?
+            [VariableLiteral<identifier>, tail2]
+        : ParseIdentifier<tail>
+    : ParserError<`Expected "$", got ${UnexpectedCharOrEndOfSource<Source>}`>;
 
 type ParseListLiteral<Source extends string> =
     Source extends `[${infer tail}` ?

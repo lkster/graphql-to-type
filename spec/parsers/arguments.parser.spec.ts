@@ -1,6 +1,6 @@
 import { Argument, ParseArguments, Variable } from '../../src/parser/arguments.parser';
 import { Expect, Equal } from 'hotscript/dist/internals/helpers';
-import { BooleanLiteral, IntLiteral, ListLiteral, StringLiteral } from '../../src/parser/literal.parser';
+import { BooleanLiteral, IntLiteral, ListLiteral, StringLiteral, VariableLiteral } from '../../src/parser/literal.parser';
 import { ListType, NamedType } from '../../src/parser/type.parser';
 import { ParserError } from '../../src/errors';
 
@@ -33,8 +33,8 @@ describe('Arguments Parser', () => {
         type actual1 = ParseArguments<'  ($var1: ID!, \n$  var2   : Int)', true>;
         type expected1 = [
             [
-                Variable<'var1', NamedType<'ID', true>>,
-                Variable<'var2', NamedType<'Int', false>>,
+                Variable<VariableLiteral<'var1'>, NamedType<'ID', true>>,
+                Variable<VariableLiteral<'var2'>, NamedType<'Int', false>>,
             ],
             '',
         ];
@@ -42,8 +42,8 @@ describe('Arguments Parser', () => {
         type actual2 = ParseArguments<'  ($VaR1: [String]! \n$var2: Boolean)\n\n\t', true>;
         type expected2 = [
             [
-                Variable<'VaR1', ListType<NamedType<'String', false>, true>>,
-                Variable<'var2', NamedType<'Boolean', false>>,
+                Variable<VariableLiteral<'VaR1'>, ListType<NamedType<'String', false>, true>>,
+                Variable<VariableLiteral<'var2'>, NamedType<'Boolean', false>>,
             ],
             '\n\n\t',
         ];

@@ -1,4 +1,4 @@
-import { Literal, ParseLiteral } from './literal.parser';
+import { Literal, ParseLiteral, VariableLiteral } from './literal.parser';
 import { ParseType, Type } from './type.parser';
 import { ConsumeWhitespace, isWhitespaceConsumed } from './whitespace.parser';
 import { ParserError } from '../errors';
@@ -12,7 +12,7 @@ export declare class Argument<Name extends string = string, Value extends Litera
     value: Value;
 }
 
-export declare class Variable<Name extends string = string, VariableType extends Type = Type> {
+export declare class Variable<Name extends VariableLiteral = VariableLiteral, VariableType extends Type = Type> {
     _: 'Variable';
     name: Name;
     type: VariableType;
@@ -67,12 +67,10 @@ type ParseArgument<Source extends string> =
 type ParseVariable<Source extends string> =
     isWhitespaceConsumed<Source> extends false ?
         ParseVariable<ConsumeWhitespace<Source>>
-    : Source extends `$${infer tail}` ?
-        ParseIdentifier<tail> extends [infer identifier extends string, infer parseIdentifierTail extends string] ?
-            ConsumeWhitespace<parseIdentifierTail> extends `:${infer tail2}` ?
-                ParseType<tail2> extends [infer variableType extends Type, infer tail3] ?
-                    [Variable<identifier, variableType>, tail3]
-                : ParseType<tail2>
-            : ParserError<`Expected ":", got ${UnexpectedCharOrEndOfSource<ConsumeWhitespace<parseIdentifierTail>>}`>
-        : ParseIdentifier<tail> // error pass-through
+    : ParseLiteral<Source> extends [infer literal extends VariableLiteral, infer tail extends string] ?
+        ConsumeWhitespace<tail> extends `:${infer tail2}` ?
+            ParseType<tail2> extends [infer variableType extends Type, infer tail3] ?
+                [Variable<literal, variableType>, tail3]
+            : ParseType<tail2>
+        : ParserError<`Expected ":", got ${UnexpectedCharOrEndOfSource<ConsumeWhitespace<tail>>}`>
     : ParserError<`Expected variable to start with $`>;
