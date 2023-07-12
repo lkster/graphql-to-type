@@ -4,7 +4,7 @@ export default {
     preset: 'ts-jest',
     testEnvironment: 'node',
     moduleDirectories: ['node_modules', 'src'],
-    roots: ['spec'],
+    roots: ['src', 'spec'],
     transformIgnorePatterns: ['^.+\\.js$'],
     watchPathIgnorePatterns: [
         'node_modules',
