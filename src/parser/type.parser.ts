@@ -1,6 +1,6 @@
 import { ConsumeWhitespace, isWhitespaceConsumed } from './whitespace.parser';
 import { ParserError } from '../errors';
-import { Head } from '../helpers';
+import { Head, UnexpectedCharOrEndOfSource } from '../helpers';
 import { ParseIdentifier } from './identifier.parser';
 
 
@@ -33,7 +33,7 @@ export type ParseType<Source extends string> =
                 tail3 extends `!${infer tail4}` ?
                     [ListType<innerType, true>, tail4]
                 : [ListType<innerType, false>, tail3]
-            : ParserError<`Expected ]`>
+            : ParserError<`Expected "]", got ${UnexpectedCharOrEndOfSource<tail2>}`>
         : ParseType<tail> // error pass-through
     : ParseIdentifier<Source> extends [infer identifier extends string, infer tail] ?
         tail extends `!${infer tail2}` ?

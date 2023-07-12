@@ -32,7 +32,7 @@ describe('Type Parser', () => {
 
     it('should return ParserError if list has not been closed', () => {
         type actual1 = ParseType<'[ID'>;
-        type expected1 = ParserError<'Expected ]'>;
+        type expected1 = ParserError<'Expected "]", got end of source'>;
 
         type test1 = Expect<Equal<actual1, expected1>>;
     });

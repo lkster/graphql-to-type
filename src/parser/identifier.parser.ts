@@ -1,7 +1,7 @@
 import { ConsumeWhitespace, isWhitespaceConsumed } from './whitespace.parser';
 import { AllowedDelimiter, IdentifierAllowedChars, IdentifierAllowedStartChars } from './constants';
 import { ParserError } from '../errors';
-import { Head } from '../helpers';
+import { Head, UnexpectedCharOrEndOfSource } from '../helpers';
 
 
 /**
@@ -13,7 +13,7 @@ export type ParseIdentifier<Source extends string> =
         ParseIdentifier<ConsumeWhitespace<Source>>
     : Source extends `${infer char extends IdentifierAllowedStartChars}${string}` ?
         ParseIdentifierRest<Source>
-    : ParserError<`Expected identifier, got ${Head<Source>}`>
+    : ParserError<`Expected identifier, got ${UnexpectedCharOrEndOfSource<Source>}`>
 
 type ParseIdentifierRest<Source extends string> =
     Source extends `${infer char extends IdentifierAllowedChars}${infer tail}` ?

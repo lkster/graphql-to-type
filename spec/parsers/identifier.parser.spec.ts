@@ -31,11 +31,13 @@ describe('Identifier Parser', () => {
             type actual2 = ParseIdentifier<'{ selections }'>;
             type actual3 = ParseIdentifier<'+Date'>;
             type actual4 = ParseIdentifier<'1d3nt1f13r'>;
+            type actual5 = ParseIdentifier<''>;
 
-            type test1 = Expect<Equal<actual1, ParserError<`${error} (`>>>
-            type test2 = Expect<Equal<actual2, ParserError<`${error} {`>>>
-            type test3 = Expect<Equal<actual3, ParserError<`${error} +`>>>
-            type test4 = Expect<Equal<actual4, ParserError<`${error} 1`>>>
+            type test1 = Expect<Equal<actual1, ParserError<`${error} "("`>>>;
+            type test2 = Expect<Equal<actual2, ParserError<`${error} "{"`>>>;
+            type test3 = Expect<Equal<actual3, ParserError<`${error} "+"`>>>;
+            type test4 = Expect<Equal<actual4, ParserError<`${error} "1"`>>>;
+            type test5 = Expect<Equal<actual5, ParserError<`${error} end of source`>>>;
         });
 
         it('should return ParserError if provided source is not valid identifier', () => {
@@ -45,9 +47,9 @@ describe('Identifier Parser', () => {
             type actual2 = ParseIdentifier<'ident+ifier'>;
             type actual3 = ParseIdentifier<'id3nt1fi%r'>;
 
-            type test1 = Expect<Equal<actual1, ParserError<`${error} '*'`>>>
-            type test2 = Expect<Equal<actual2, ParserError<`${error} '+'`>>>
-            type test3 = Expect<Equal<actual3, ParserError<`${error} '%'`>>>
+            type test1 = Expect<Equal<actual1, ParserError<`${error} '*'`>>>;
+            type test2 = Expect<Equal<actual2, ParserError<`${error} '+'`>>>;
+            type test3 = Expect<Equal<actual3, ParserError<`${error} '%'`>>>;
         });
     });
 });
