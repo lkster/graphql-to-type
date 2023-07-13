@@ -4,15 +4,20 @@ import { ConsumeWhitespace, isWhitespaceConsumed } from './whitespace.parser';
 import { ParserError } from '../errors';
 import { Head, UnexpectedCharOrEndOfSource } from '../helpers';
 import { ParseIdentifier } from './identifier.parser';
+import { Expression } from './expression';
 
 
-export declare class Argument<Name extends string = string, Value extends Literal | Variable = Literal | Variable> {
+export declare class Argument<Name extends string = string, Value extends Literal | Variable = Literal | Variable> extends Expression {
     _: 'Argument';
     name: Name;
     value: Value;
 }
 
-export declare class Variable<Name extends VariableLiteral = VariableLiteral, VariableType extends Type = Type, DefaultValue extends Literal | undefined = Literal | undefined> {
+export declare class Variable<
+    Name extends VariableLiteral = VariableLiteral,
+    VariableType extends Type = Type,
+    DefaultValue extends Literal | undefined = Literal | undefined
+> extends Expression {
     _: 'Variable';
     name: Name;
     type: VariableType;

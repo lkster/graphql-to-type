@@ -3,9 +3,10 @@ import { Head, UnexpectedCharOrEndOfSource } from '../helpers';
 import { AllowedDelimiter } from './constants';
 import { ConsumeWhitespace, isWhitespaceConsumed } from './whitespace.parser';
 import { ParseIdentifier } from './identifier.parser';
+import { Expression } from './expression';
 
 
-export declare class Literal<Type extends string = string> {
+export declare class Literal<Type extends string = string> extends Expression {
     _: 'Literal';
     type: Type;
 }

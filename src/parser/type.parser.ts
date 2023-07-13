@@ -2,9 +2,10 @@ import { ConsumeWhitespace, isWhitespaceConsumed } from './whitespace.parser';
 import { ParserError } from '../errors';
 import { Head, UnexpectedCharOrEndOfSource } from '../helpers';
 import { ParseIdentifier } from './identifier.parser';
+import { Expression } from './expression';
 
 
-export declare class Type<Kind extends string = string, Required extends boolean = boolean> {
+export declare class Type<Kind extends string = string, Required extends boolean = boolean> extends Expression {
     _: 'Type';
     kind: Kind;
     required: Required;

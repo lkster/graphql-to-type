@@ -3,6 +3,7 @@ import { ParserError } from '../errors';
 import { Head, UnexpectedCharOrEndOfSource } from '../helpers';
 import { ParseIdentifier } from './identifier.parser';
 import { Argument, ParseArguments } from './arguments.parser';
+import { Expression } from './expression';
 
 
 export declare class Field<
@@ -10,7 +11,7 @@ export declare class Field<
     Alias extends string | undefined = string | undefined,
     Arguments extends Argument[] | undefined = Argument[] | undefined,
     SelectionSet extends Field[] | undefined = Field<string, string | undefined, Argument[] | undefined, any[] | undefined>[] | undefined,
-> {
+> extends Expression {
     _: 'Field';
     name: Name;
     alias: Alias;

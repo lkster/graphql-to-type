@@ -4,13 +4,14 @@ import { ConsumeWhitespace, isWhitespaceConsumed } from './whitespace.parser';
 import { AllowedDelimiter, IdentifierAllowedStartChars, OperationTypes } from './constants';
 import { ParseIdentifier } from './identifier.parser';
 import { ParserError } from '../errors';
+import { Expression } from './expression';
 
 
 export declare class Operation<
     Type extends string = string, Name extends string | undefined = string | undefined,
     Variables extends Variable[] | undefined = Variable[] | undefined,
     SelectionSet extends Field[] = Field[],
-> {
+> extends Expression {
     _: 'Operation';
     name: Name;
     type: Type;
