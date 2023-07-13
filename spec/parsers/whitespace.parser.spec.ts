@@ -40,5 +40,18 @@ describe('Whitespace Parser', () => {
             type test3 = Expect<Equal<actual3, 'query'>>;
             type test4 = Expect<Equal<actual4, 'query'>>;
         });
+
+        it('should consume comments in provided source', () => {
+            type actual1 = ConsumeWhitespace<`
+                # some comment
+
+                    #another #comment#
+
+                query`>;
+            type actual2 = ConsumeWhitespace<'\n\n\n#lol\nquery'>;
+
+            type test1 = Expect<Equal<actual1, 'query'>>;
+            type test2 = Expect<Equal<actual2, 'query'>>;
+        });
     });
 });

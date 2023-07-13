@@ -1,6 +1,8 @@
-export type Whitespace = '\n' | '\r' | '\t' | ' ' | ',';
+export type LineFeed = '\n' | '\r';
 
-export type Punctuators = '!' | '$' | '&' | '(' | ')' | '.' | ':' | '=' | '@' | '[' | ']' | '{' | '}' | '|';
+export type Whitespace = '\t' | ' ' | ',' | LineFeed;
+
+export type Punctuators = '!' | '$' | '&' | '(' | ')' | '.' | ':' | '=' | '@' | '[' | ']' | '{' | '}' | '|' | '#';
 
 export type OperationTypes = 'query' | 'mutation' | 'subscription';
 
