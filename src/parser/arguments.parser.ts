@@ -12,10 +12,11 @@ export declare class Argument<Name extends string = string, Value extends Litera
     value: Value;
 }
 
-export declare class Variable<Name extends VariableLiteral = VariableLiteral, VariableType extends Type = Type> {
+export declare class Variable<Name extends VariableLiteral = VariableLiteral, VariableType extends Type = Type, DefaultValue extends Literal | undefined = Literal | undefined> {
     _: 'Variable';
     name: Name;
     type: VariableType;
+    defaultValue: DefaultValue;
 }
 
 /**
@@ -67,10 +68,14 @@ type ParseArgument<Source extends string> =
 type ParseVariable<Source extends string> =
     isWhitespaceConsumed<Source> extends false ?
         ParseVariable<ConsumeWhitespace<Source>>
-    : ParseLiteral<Source> extends [infer literal extends VariableLiteral, infer tail extends string] ?
+    : ParseLiteral<Source> extends [infer variableLiteral extends VariableLiteral, infer tail extends string] ?
         ConsumeWhitespace<tail> extends `:${infer tail2}` ?
-            ParseType<tail2> extends [infer variableType extends Type, infer tail3] ?
-                [Variable<literal, variableType>, tail3]
+            ParseType<tail2> extends [infer variableType extends Type, infer tail3 extends string] ?
+                ConsumeWhitespace<tail3> extends `=${infer tail4}` ?
+                    ParseLiteral<tail4> extends [infer valueLiteral extends Literal, infer tail5 extends string] ?
+                        [Variable<variableLiteral, variableType, valueLiteral>, tail5]
+                    : ParseLiteral<tail4>
+                : [Variable<variableLiteral, variableType, undefined>, tail3]
             : ParseType<tail2>
         : ParserError<`Expected ":", got ${UnexpectedCharOrEndOfSource<ConsumeWhitespace<tail>>}`>
     : ParserError<`Expected variable to start with $`>;

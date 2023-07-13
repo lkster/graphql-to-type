@@ -58,8 +58,8 @@ describe('Operation Parser', () => {
                 'query',
                 undefined,
                 [
-                    Variable<VariableLiteral<'userId'>, NamedType<'ID', true>>,
-                    Variable<VariableLiteral<'var2'>, NamedType<'String', false>>
+                    Variable<VariableLiteral<'userId'>, NamedType<'ID', true>, undefined>,
+                    Variable<VariableLiteral<'var2'>, NamedType<'String', false>, undefined>
                 ],
                 [
                     Field<'user', undefined, [
@@ -135,8 +135,8 @@ describe('Operation Parser', () => {
                 'query',
                 'getUser',
                 [
-                    Variable<VariableLiteral<'userId'>, NamedType<'ID', true>>,
-                    Variable<VariableLiteral<'var2'>, NamedType<'String', false>>
+                    Variable<VariableLiteral<'userId'>, NamedType<'ID', true>, undefined>,
+                    Variable<VariableLiteral<'var2'>, NamedType<'String', false>, undefined>
                 ],
                 [
                     Field<'user', undefined, [

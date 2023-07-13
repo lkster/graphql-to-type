@@ -33,8 +33,8 @@ describe('Arguments Parser', () => {
         type actual1 = ParseArguments<'  ($var1: ID!, \n$  var2   : Int)', true>;
         type expected1 = [
             [
-                Variable<VariableLiteral<'var1'>, NamedType<'ID', true>>,
-                Variable<VariableLiteral<'var2'>, NamedType<'Int', false>>,
+                Variable<VariableLiteral<'var1'>, NamedType<'ID', true>, undefined>,
+                Variable<VariableLiteral<'var2'>, NamedType<'Int', false>, undefined>,
             ],
             '',
         ];
@@ -42,14 +42,27 @@ describe('Arguments Parser', () => {
         type actual2 = ParseArguments<'  ($VaR1: [String]! \n$var2: Boolean)\n\n\t', true>;
         type expected2 = [
             [
-                Variable<VariableLiteral<'VaR1'>, ListType<NamedType<'String', false>, true>>,
-                Variable<VariableLiteral<'var2'>, NamedType<'Boolean', false>>,
+                Variable<VariableLiteral<'VaR1'>, ListType<NamedType<'String', false>, true>, undefined>,
+                Variable<VariableLiteral<'var2'>, NamedType<'Boolean', false>, undefined>,
             ],
             '\n\n\t',
         ];
 
         type test1 = Expect<Equal<actual1, expected1>>;
         type test2 = Expect<Equal<actual2, expected2>>;
+    });
+
+    it('should properly parse variables with default values', () => {
+        type actual = ParseArguments<'($var1: String = "something", $var2: Int! = 420)', true>;
+        type expected = [
+            [
+                Variable<VariableLiteral<'var1'>, NamedType<'String', false>, StringLiteral<'something'>>,
+                Variable<VariableLiteral<'var2'>, NamedType<'Int', true>, IntLiteral<'420'>>,
+            ],
+            '',
+        ];
+
+        type test = Expect<Equal<actual, expected>>;
     });
 
     it('should return error if parsed arguments are invalid', () => {
