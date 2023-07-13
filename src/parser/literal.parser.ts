@@ -19,6 +19,7 @@ export declare class IntLiteral<Value extends string = string> extends ValueLite
 export declare class FloatLiteral<Value extends string = string> extends ValueLiteral<'float', Value> {}
 export declare class BooleanLiteral<Value extends string = string> extends ValueLiteral<'boolean', Value> {}
 export declare class EnumLiteral<Value extends string = string> extends ValueLiteral<'enum', Value> {}
+export declare class NullLiteral extends Literal<'null'> {}
 
 export declare class VariableLiteral<Name extends string = string> extends Literal<'variable'> {
     name: Name;
@@ -58,6 +59,8 @@ export type ParseLiteral<Source extends string> =
         ParseListLiteral<Source>
     : Source extends `{${string}` ?
         ParseObjectLiteral<Source>
+    : Source extends `null${string}` ?
+        ParseNullLiteral<Source>
     : ParseEnumLiteral<Source>;
 
 type ParseNumberLiteral<Source extends string> =
@@ -175,3 +178,9 @@ type ParseEnumLiteral<Source extends string> =
         [EnumLiteral<identifier>, tail]
     : ParseIdentifier<Source>;
 
+type ParseNullLiteral<Source extends string> =
+    ParseIdentifier<Source> extends [infer identifier extends string, infer tail extends string] ?
+        identifier extends 'null' ?
+            [NullLiteral, tail]
+        : ParseEnumLiteral<Source>
+    : ParseIdentifier<Source>

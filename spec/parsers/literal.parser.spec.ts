@@ -1,5 +1,5 @@
 import { Expect, Equal } from 'hotscript/dist/internals/helpers';
-import { BooleanLiteral, EnumLiteral, FloatLiteral, IntLiteral, ListLiteral, ObjectLiteral, ObjectLiteralField, ParseLiteral, StringLiteral, VariableLiteral } from '../../src/parser/literal.parser';
+import { BooleanLiteral, EnumLiteral, FloatLiteral, IntLiteral, ListLiteral, NullLiteral, ObjectLiteral, ObjectLiteralField, ParseLiteral, StringLiteral, VariableLiteral } from '../../src/parser/literal.parser';
 import { ParserError } from '../../src/errors';
 
 
@@ -185,8 +185,12 @@ describe('Literal Parser', () => {
             type actual2 = ParseLiteral<'falsea'>;
             type expected2 = [EnumLiteral<'falsea'>, ''];
 
+            type actual3 = ParseLiteral<'nullify'>;
+            type expected3 = [EnumLiteral<'nullify'>, ''];
+
             type test1 = Expect<Equal<actual1, expected1>>;
             type test2 = Expect<Equal<actual2, expected2>>;
+            type test3 = Expect<Equal<actual3, expected3>>;
         });
 
         it('should return error if parsed enum is invalid', () => {
@@ -198,6 +202,15 @@ describe('Literal Parser', () => {
 
             type test1 = Expect<Equal<actual1, expected1>>;
             type test2 = Expect<Equal<actual2, expected2>>;
+        });
+    });
+
+    describe('parsing null', () => {
+        it('should properly parse null', () => {
+            type actual = ParseLiteral<'null  '>;
+            type expected = [NullLiteral, '  '];
+
+            type test = Expect<Equal<actual, expected>>;
         });
     });
 });
