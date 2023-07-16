@@ -17,6 +17,14 @@ export interface IMedia {
     episode: IMediaEpisode;
 }
 
+export interface IMediaInput {
+    id: number;
+    type?: MediaType;
+    season?: number;
+    episodes?: number;
+    duration?: number;
+}
+
 export interface IMediaTitle {
     romaji: string | null;
     english: string | null;
@@ -45,5 +53,6 @@ export type TypeMap = {
         Media: IMedia,
         MediaTitle: IMediaTitle,
         MediaType: MediaType,
+        MediaInput: IMediaInput,
     },
 };
