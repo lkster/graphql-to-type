@@ -37,6 +37,11 @@ export enum MediaType {
 export type TypeMap = {
     query: Query,
     types: {
+        Int: number;
+        Float: number;
+        ID: string;
+        String: string;
+        Date: Date;
         Media: IMedia,
         MediaTitle: IMediaTitle,
         MediaType: MediaType,
