@@ -16,7 +16,7 @@ export declare class NamedType<Name extends string = string, Required extends bo
 }
 
 export declare class ListType<InnerType extends Type = Type, Required extends boolean = boolean> extends Type<'list', Required> {
-    type: Type;
+    type: InnerType;
 }
 
 
