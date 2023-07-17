@@ -22,4 +22,4 @@ export type GraphQlVariables<GraphQl extends string, Types extends TypeMap> =
 export type GraphQlResponse<GraphQl extends string, Types extends TypeMap> = 
     NormalizeObject<GraphQlRawResponse<GraphQlOperation<GraphQl, Types>>>;
 
-export { GraphQlError } from './graphql';
+export type { GraphQlError } from './graphql';

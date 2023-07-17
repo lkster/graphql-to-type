@@ -1,13 +1,13 @@
-export * from './parser/arguments.parser';
-export * from './parser/identifier.parser';
-export * from './parser/literal.parser';
-export * from './parser/operation.parser';
-export * from './parser/selection.parser';
-export * from './parser/type.parser';
-export * from './parser/whitespace.parser';
-export * from './parser/parser';
+export type * from './parser/arguments.parser';
+export type * from './parser/identifier.parser';
+export type * from './parser/literal.parser';
+export type * from './parser/operation.parser';
+export type * from './parser/selection.parser';
+export type * from './parser/type.parser';
+export type * from './parser/whitespace.parser';
+export type * from './parser/parser';
 
-export * from './parser/constants';
-export * from './parser/expression';
+export type * from './parser/constants';
+export type * from './parser/expression';
 
-export * from './errors';
+export type * from './errors';
