@@ -22,7 +22,7 @@ export declare class Operation<
 /**
  * @param {string} source
  *
- * @returns [operation: Operation, sourceTail: string]
+ * @returns {[operation: Operation, sourceTail: string]}
  */
 export type ParseOperation<Source extends string> =
     isWhitespaceConsumed<Source> extends false ?

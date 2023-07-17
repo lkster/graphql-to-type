@@ -4,6 +4,12 @@ import { NormalizeObject } from '../helpers';
 import { TransformType } from './type.transformer';
 
 
+/**
+ * @param {Variable[]} ast
+ * @param {TypeMap} types
+ *
+ * @returns {Record<string, any>}
+ */
 export type TransformVariables<Ast extends Variable[], Types extends TypeMap> =
     Ast extends [] ?
         {}

@@ -6,7 +6,8 @@ import { Head, UnexpectedCharOrEndOfSource } from '../helpers';
 
 /**
  * @param {string} source
- * @returns [identifier: string, sourceTail: string]
+ * 
+ * @returns {[identifier: string, sourceTail: string]}
  */
 export type ParseIdentifier<Source extends string> =
     isWhitespaceConsumed<Source> extends false ?

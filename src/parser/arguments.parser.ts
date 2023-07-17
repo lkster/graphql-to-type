@@ -26,8 +26,9 @@ export declare class Variable<
 
 /**
  * @param {string} source
+ * @param {boolean} variables whether it should parse variables instead
  *
- * @returns [arguments: Argument[] | Variable[], sourceTail: string]
+ * @returns {[arguments: Argument[] | Variable[], sourceTail: string]}
  */
 export type ParseArguments<Source extends string, Variables extends boolean = false> =
     isWhitespaceConsumed<Source> extends false ?

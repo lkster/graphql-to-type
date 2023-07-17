@@ -23,7 +23,7 @@ export declare class Field<
 /**
  * @param {string} source
  *
- * @returns [selections: Field[], sourceTail: string]
+ * @returns {[selections: Field[], sourceTail: string]}
  */
 export type ParseSelectionSet<Source extends string> =
     isWhitespaceConsumed<Source> extends false ?

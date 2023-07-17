@@ -3,6 +3,13 @@ import { TypeMap } from '../type-map';
 import { NormalizeObject, NullOrUndefined } from '../helpers';
 
 
+/**
+ * @param {Field[]} ast
+ * @param {Record<string, any>} currentType
+ * @param {TypeMap} types
+ *
+ * @returns {Record<string, any>}
+ */
 export type TransformSelectionSet<Ast extends Field[], CurrentType extends Record<string, any>, Types extends TypeMap> =
     Ast extends [] ?
         {}

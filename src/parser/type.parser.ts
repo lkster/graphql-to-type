@@ -23,7 +23,7 @@ export declare class ListType<InnerType extends Type = Type, Required extends bo
 /**
  * @param {string} source
  *
- * @returns [type: Type, sourceTail: string]
+ * @returns {[type: Type, sourceTail: string]}
  */
 export type ParseType<Source extends string> =
     isWhitespaceConsumed<Source> extends false ?

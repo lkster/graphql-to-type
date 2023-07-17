@@ -43,7 +43,7 @@ export declare class ObjectLiteralField<Name extends string = string, Value exte
 /**
  * @param {string} source
  *
- * @returns [value: Literal, sourceTail: string]
+ * @returns {[value: Literal, sourceTail: string]}
  */
 export type ParseLiteral<Source extends string> =
     isWhitespaceConsumed<Source> extends false ?

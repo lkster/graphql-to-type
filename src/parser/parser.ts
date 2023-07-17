@@ -5,7 +5,8 @@ import { Expression } from './expression';
 
 /**
  * @param {string} source
- * @returns Expression[]
+ *
+ * @returns {Expression[]}
  */
 export type ParseSource<Source extends string> =
     isWhitespaceConsumed<Source> extends false ?

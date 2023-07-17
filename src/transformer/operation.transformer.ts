@@ -5,6 +5,12 @@ import { Field } from '../parser/selection.parser';
 import { TransformSelectionSet } from './selection.transformer';
 
 
+/**
+ * @param {Operation} ast
+ * @param {TypeMap} types
+ *
+ * @returns {Record<string, any>}
+ */
 export type TransformOperation<Ast extends Operation, Types extends TypeMap> =
     Ast['type'] extends keyof Types ?
         Types[Ast['type']] extends Record<string, any> ?
