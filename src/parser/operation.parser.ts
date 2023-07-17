@@ -1,7 +1,7 @@
 import { Field, ParseSelectionSet } from './selection.parser';
 import { ParseArguments, Variable } from './arguments.parser';
 import { ConsumeWhitespace, isWhitespaceConsumed } from './whitespace.parser';
-import { AllowedDelimiter, IdentifierAllowedStartChars, OperationTypes } from './constants';
+import { IdentifierAllowedStartChars, OperationTypes } from './constants';
 import { ParseIdentifier } from './identifier.parser';
 import { ParserError } from '../errors';
 import { Expression } from './expression';

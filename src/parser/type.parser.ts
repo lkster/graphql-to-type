@@ -1,6 +1,6 @@
 import { ConsumeWhitespace, isWhitespaceConsumed } from './whitespace.parser';
 import { ParserError } from '../errors';
-import { Head, UnexpectedCharOrEndOfSource } from '../helpers';
+import { UnexpectedCharOrEndOfSource } from '../helpers';
 import { ParseIdentifier } from './identifier.parser';
 import { Expression } from './expression';
 

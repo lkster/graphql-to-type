@@ -1,5 +1,4 @@
 import { TypeMap } from './type-map';
-import { TransformSelectionSet } from './transformer/selection.transformer';
 import { Operation, ParseOperation } from './parser/operation.parser';
 import { TransformOperation } from './transformer/operation.transformer';
 import { TransformVariables } from './transformer/variables.transformer';

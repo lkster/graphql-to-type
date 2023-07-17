@@ -1,7 +1,5 @@
-import { Expression } from '../parser/expression';
 import { Operation } from '../parser/operation.parser';
 import { TypeMap } from '../type-map';
-import { Field } from '../parser/selection.parser';
 import { TransformSelectionSet } from './selection.transformer';
 
 
