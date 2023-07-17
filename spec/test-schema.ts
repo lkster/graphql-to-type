@@ -4,6 +4,10 @@ export interface Query {
     media: IMedia;
 }
 
+export interface Mutation {
+    updateMedia: boolean;
+}
+
 export interface IMedia {
     id: number;
     title: IMediaTitle | null;
@@ -44,6 +48,7 @@ export enum MediaType {
 
 export type TypeMap = {
     query: Query,
+    mutation: Mutation,
     types: {
         Int: number;
         Float: number;
