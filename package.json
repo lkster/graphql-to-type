@@ -15,9 +15,9 @@
     "types": "./dist/index.d.ts",
     "scripts": {
         "build": "tsc",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "jest"
     },
-    "keywords": [],
+    "keywords": ["typescript", "ts", "type", "types", "graphql", "gql"],
     "author": "Dominik Mielcarek <work@mielcarek.dev>",
     "license": "MIT",
     "devDependencies": {
