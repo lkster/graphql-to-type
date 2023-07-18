@@ -80,7 +80,7 @@ type ParseNumberLiteral<Source extends string> =
 type ParseIntLiteral<Source extends string> =
     Source extends `${AllowedDelimiter}${string}` | '' ? // needs to be checked first as space is considered number in condition below (TS bug?)
         [IntLiteral<''>, Source]
-    : Source extends `${infer parsedNumber extends number}${infer tail}` ?
+    : Source extends `${infer parsedNumber extends '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '0'}${infer tail}` ?
         ParseIntLiteral<tail> extends [infer intLiteral extends IntLiteral, infer tail2] ?
             [IntLiteral<`${parsedNumber}${intLiteral['value']}`>, tail2]
         : ParseIntLiteral<tail> // error
@@ -184,4 +184,4 @@ type ParseNullLiteral<Source extends string> =
         identifier extends 'null' ?
             [NullLiteral, tail]
         : ParseEnumLiteral<Source>
-    : ParseIdentifier<Source>
+    : ParseIdentifier<Source>;
