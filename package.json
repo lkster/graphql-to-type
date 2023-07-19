@@ -1,7 +1,7 @@
 {
     "name": "graphql-to-type",
     "version": "1.0.0",
-    "description": "",
+    "description": "(almost) Fully functional GraphQL request parser written completely using TypeScript's typing system.",
     "main": "./dist/index.js",
     "exports": {
         "types": "./dist/index.d.ts",
@@ -16,6 +16,10 @@
     "scripts": {
         "build": "tsc",
         "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ThaFog/graphql-to-type"
     },
     "keywords": ["typescript", "ts", "type", "types", "graphql", "gql"],
     "author": "Dominik Mielcarek <work@mielcarek.dev>",
