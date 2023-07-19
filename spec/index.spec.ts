@@ -1,7 +1,6 @@
 import { Expect, Equal } from 'hotscript/dist/internals/helpers';
-import { GraphQlError, GraphQlOperation, GraphQlResponse, GraphQlVariables } from '../src';
+import { GraphQlError, GraphQlOperation, GraphQlOperationName, GraphQlOperationType, GraphQlResponse, GraphQlVariables } from '../src';
 import { TypeMap } from './test-schema';
-
 
 
 const query = `
@@ -69,6 +68,54 @@ describe('Index Types', () => {
                 id: number;
                 season?: number | null;
             };
+
+            type test = Expect<Equal<actual, expected>>;
+        });
+    });
+
+    describe('GraphQlOperationName', () => {
+        it('should properly return operation name', () => {
+            type actual1 = GraphQlOperationName<typeof query>;
+            type expected1 = 'getMedia';
+
+            type actual2 = GraphQlOperationName<typeof mutation>;
+            type expected2 = 'updateMedia';
+
+            type test1 = Expect<Equal<actual1, expected1>>;
+            type test2 = Expect<Equal<actual2, expected2>>;
+        });
+
+        it('should return undefined if name is not provided', () => {
+            type actual = GraphQlOperationName<`
+                query {
+                    ok
+                }
+            `>;
+            type expected = undefined;
+
+            type test = Expect<Equal<actual, expected>>;
+        });
+    });
+
+    describe('GraphQlOperationType', () => {
+        it('should properly return operation name', () => {
+            type actual1 = GraphQlOperationType<typeof query>;
+            type expected1 = 'query';
+
+            type actual2 = GraphQlOperationType<typeof mutation>;
+            type expected2 = 'mutation';
+
+            type test1 = Expect<Equal<actual1, expected1>>;
+            type test2 = Expect<Equal<actual2, expected2>>;
+        });
+
+        it('should return query type as default', () => {
+            type actual = GraphQlOperationType<`
+                {
+                    ok
+                }
+            `>;
+            type expected = 'query';
 
             type test = Expect<Equal<actual, expected>>;
         });

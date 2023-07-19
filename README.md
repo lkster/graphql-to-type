@@ -223,6 +223,23 @@ Extracts variables from operation and transforms them into record type
 type GraphQlVariables<GraphQl extends string, Types extends TypeMap>
 ```
 
+### GraphQlOperationName
+
+Extracts name of the operation. Returns `undefined` if operation has no name set
+
+```ts
+type GraphQlOperationName<GraphQl extends string>
+```
+
+### GraphQlOperationType
+
+Extracts type of the operation. Returns `query` if no operation type is provided based on GraphQL spec.
+
+```ts
+type GraphQlOperationType<GraphQl extends string>
+```
+
+
 ### GraphQlResponse
 
 Extracts selection set from operation, transforms it into record type and encloses it in graphQl-compatible response type

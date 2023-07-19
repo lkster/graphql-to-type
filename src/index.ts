@@ -19,6 +19,16 @@ export type GraphQlVariables<GraphQl extends string, Types extends TypeMap> =
         : {}
     : ParseOperation<GraphQl>;
 
+export type GraphQlOperationName<GraphQl extends string> =
+    ParseOperation<GraphQl> extends [infer Ast extends Operation, any] ?
+        Ast['name']
+    : ParseOperation<GraphQl>;
+
+export type GraphQlOperationType<GraphQl extends string> =
+    ParseOperation<GraphQl> extends [infer Ast extends Operation, any] ?
+        Ast['type']
+    : ParseOperation<GraphQl>;
+
 export type GraphQlResponse<GraphQl extends string, Types extends TypeMap> = 
     NormalizeObject<GraphQlRawResponse<GraphQlOperation<GraphQl, Types>>>;
 
