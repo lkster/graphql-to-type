@@ -29,6 +29,18 @@ describe('Arguments Parser', () => {
         type test2 = Expect<Equal<actual2, expected2>>;
     });
 
+    it('should properly parse argument with variable as value', () => {
+        type actual = ParseArguments<'  (arg1: $var)'>;
+        type expected = [
+            [
+                Argument<'arg1', VariableLiteral<'var'>>,
+            ],
+            '',
+        ];
+
+        type test = Expect<Equal<actual, expected>>;
+    });
+
     it('should properly parse variables', () => {
         type actual1 = ParseArguments<'  ($var1: ID!, \n$  var2   : Int)', true>;
         type expected1 = [
