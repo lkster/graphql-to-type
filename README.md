@@ -1,7 +1,7 @@
-# graphql-to-type ![npm version badge](https://img.shields.io/npm/v/graphql-to-type.svg)
+# graphql-to-type [![npm version badge](https://img.shields.io/npm/v/graphql-to-type.svg)](https://www.npmjs.com/package/graphql-to-type)
 
 (almost) Fully functional GraphQL request parser written completely using TypeScript's typing system. 
-At first I just wanted to see if it's even possible but turned out it can be actually useful in the end.
+At first, I just wanted to see if it's even possible but turned out it can be actually useful in the end.
 
 https://github.com/ThaFog/graphql-to-type/assets/10232371/12515523-5ddd-479e-8562-b2760cfe1a68
 
@@ -12,12 +12,9 @@ https://github.com/ThaFog/graphql-to-type/assets/10232371/12515523-5ddd-479e-856
 - Extracting operation type and name
 - Fields' aliases
 - Consuming comments
+- Directives (not functional, ignored in transformer)
 
 Not yet supported:
-- Decorators 
-  
-  Not yet implemented to be parsable. In the future they will be probably just omitted.
-
 - Fragments and fragment spreads
 
   Not yet implemented to be parsable. It's probably possible to have them working though if some conditions are met.
@@ -58,8 +55,8 @@ type queryResponse = GraphQlResponse<typeof query, TypeMap>;
             company: {
                 ceo: string;
                 employees: number;
-                links: {
-                    website: string;
+                infoLinks: {
+                    elon_twitter: string;
                 };
             };
         };
@@ -123,8 +120,8 @@ type queryOperation = GraphQlOperation<typeof query, TypeMap>;
         company: {
             ceo: string;
             employees: number;
-            links: {
-                website: string;
+            infoLinks: {
+                elon_twitter: string;
             };
         };
     };
