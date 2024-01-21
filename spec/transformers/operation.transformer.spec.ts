@@ -12,12 +12,12 @@ describe('Operation Transformer', () => {
                     id
                     titles: title {
                         english
-                        romaji
+                        romaji @deprecated(reason: "lol")
                     }
                     type,
                     episodes,
                 },
-                secondMedia: media(id: 2) {
+                secondMedia: media(id: 2) @directive {
                     episodes,
                 }
             }

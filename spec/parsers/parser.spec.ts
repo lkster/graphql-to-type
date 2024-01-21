@@ -5,6 +5,7 @@ import { Operation } from '../../src/parser/operation.parser';
 import { ParseSource } from '../../src/parser/parser';
 import { Field } from '../../src/parser/selection.parser';
 import { NamedType } from '../../src/parser/type.parser';
+import { Directive } from '../../src/parser/directives.parser';
 
 
 describe('Parser', () => {
@@ -24,7 +25,7 @@ describe('Parser', () => {
                     people {
                         name
                         gender
-                        eyeColor
+                        eyeColor @deprecated
                         planet {
                             name
                         }
@@ -43,11 +44,12 @@ describe('Parser', () => {
                 [
                     Field<'allPlanets', undefined, [Argument<'first', VariableLiteral<'first'>>], [
                         Field<'planets', undefined, undefined, [
-                            Field<'name', undefined, undefined, undefined>,
-                            Field<'gravity', undefined, undefined, undefined>
-                        ]>
-                    ]>
-                ]
+                            Field<'name', undefined, undefined, undefined, undefined>,
+                            Field<'gravity', undefined, undefined, undefined, undefined>
+                        ], undefined>
+                    ], undefined>
+                ],
+                undefined
             >,
             Operation<
                 'query',
@@ -58,15 +60,16 @@ describe('Parser', () => {
                 [
                     Field<'allPeople', undefined, [Argument<'first', VariableLiteral<'first'>>], [
                         Field<'people', undefined, undefined, [
-                            Field<'name', undefined, undefined, undefined>,
-                            Field<'gender', undefined, undefined, undefined>,
-                            Field<'eyeColor', undefined, undefined, undefined>,
+                            Field<'name', undefined, undefined, undefined, undefined>,
+                            Field<'gender', undefined, undefined, undefined, undefined>,
+                            Field<'eyeColor', undefined, undefined, undefined, [Directive<'deprecated'>]>,
                             Field<'planet', undefined, undefined, [
-                                Field<'name', undefined, undefined, undefined>
-                            ]>
-                        ]>
-                    ]>
-                ]
+                                Field<'name', undefined, undefined, undefined, undefined>
+                            ], undefined>
+                        ], undefined>
+                    ], undefined>
+                ],
+                undefined
             >
         ];
 

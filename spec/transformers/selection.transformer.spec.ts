@@ -30,6 +30,31 @@ describe('Selection Set Transformer', () => {
         type test = Expect<Equal<actual, expected>>;
     });
 
+    it('should properly transform selection set with directives', () => {
+        type selectionSet = ParseSelectionSet<`{
+            media(id: 2) @include(if: $includeMedia) {
+                id
+                title {
+                    english @deprecated
+                }
+                season
+            }
+        }`>[0];
+
+        type actual = TransformSelectionSet<selectionSet, TypeMap['query'], TypeMap>;
+        type expected = {
+            media: {
+                id: number;
+                title: {
+                    english: string | null;
+                } | null
+                season: number;
+            };
+        };
+
+        type test = Expect<Equal<actual, expected>>;
+    });
+
     it('should set field to unknown type if it does not exist in provided type map', () => {
         type selectionSet1 = ParseSelectionSet<`{
             doesNotExist {

@@ -1,6 +1,7 @@
 import { Expect, Equal } from 'hotscript/dist/internals/helpers';
 import { ParserError } from '../../src/errors';
 import { Argument } from '../../src/parser/arguments.parser';
+import { Directive } from '../../src/parser/directives.parser';
 import { IntLiteral } from '../../src/parser/literal.parser';
 import { Field, ParseSelectionSet } from '../../src/parser/selection.parser';
 
@@ -17,10 +18,10 @@ describe('Selection Parser', () => {
     
             type expected = [
                 [
-                    Field<'id', undefined, undefined, undefined>,
-                    Field<'username', undefined, undefined, undefined>,
-                    Field<'firstName', undefined, undefined, undefined>,
-                    Field<'fullName', undefined, undefined, undefined>,
+                    Field<'id', undefined, undefined, undefined, undefined>,
+                    Field<'username', undefined, undefined, undefined, undefined>,
+                    Field<'firstName', undefined, undefined, undefined, undefined>,
+                    Field<'fullName', undefined, undefined, undefined, undefined>,
                 ],
                 '',
             ];
@@ -44,16 +45,16 @@ describe('Selection Parser', () => {
     
             type expected = [
                 [
-                    Field<'id', undefined, undefined, undefined>,
-                    Field<'body', undefined, undefined, undefined>,
+                    Field<'id', undefined, undefined, undefined, undefined>,
+                    Field<'body', undefined, undefined, undefined, undefined>,
                     Field<'comments', undefined, undefined, [
                         Field<'author', undefined, undefined, [
-                            Field<'id', undefined, undefined, undefined>,
-                            Field<'username', undefined, undefined, undefined>,
-                        ]>,
-                        Field<'body', undefined, undefined, undefined>,
-                    ]>,
-                    Field<'likesCount', undefined, undefined, undefined>,
+                            Field<'id', undefined, undefined, undefined, undefined>,
+                            Field<'username', undefined, undefined, undefined, undefined>,
+                        ], undefined>,
+                        Field<'body', undefined, undefined, undefined, undefined>,
+                    ], undefined>,
+                    Field<'likesCount', undefined, undefined, undefined, undefined>,
                 ],
                 '',
             ];
@@ -68,20 +69,20 @@ describe('Selection Parser', () => {
                     body
                 }
             }`>;
-    
+
             type expected = [
                 [
-                    Field<'body', undefined, undefined, undefined>,
+                    Field<'body', undefined, undefined, undefined, undefined>,
                     Field<'comments', undefined, [
                         Argument<'max', IntLiteral<'100'>>,
                         Argument<'offset', IntLiteral<'0'>>,
                     ], [
-                        Field<'body', undefined, undefined, undefined>,
-                    ]>,
+                        Field<'body', undefined, undefined, undefined, undefined>,
+                    ], undefined>,
                 ],
                 '',
             ];
-    
+
             type test = Expect<Equal<actual, expected>>;
         });
     
@@ -101,20 +102,54 @@ describe('Selection Parser', () => {
     
             type expected = [
                 [
-                    Field<'id', undefined, undefined, undefined>,
-                    Field<'body', undefined, undefined, undefined>,
+                    Field<'id', undefined, undefined, undefined, undefined>,
+                    Field<'body', undefined, undefined, undefined, undefined>,
                     Field<'comments', undefined, undefined, [
                         Field<'author', 'creator', undefined, [
-                            Field<'id', undefined, undefined, undefined>,
-                            Field<'username', undefined, undefined, undefined>,
-                        ]>,
-                        Field<'body', undefined, undefined, undefined>,
-                    ]>,
-                    Field<'likesCount', 'likes', undefined, undefined>,
+                            Field<'id', undefined, undefined, undefined, undefined>,
+                            Field<'username', undefined, undefined, undefined, undefined>,
+                        ], undefined>,
+                        Field<'body', undefined, undefined, undefined, undefined>,
+                    ], undefined>,
+                    Field<'likesCount', 'likes', undefined, undefined, undefined>,
                 ],
                 '',
             ];
     
+            type test = Expect<Equal<actual, expected>>;
+        });
+
+        it('should properly parse selection with directives', () => {
+            type actual = ParseSelectionSet<`{
+                body @directive(arg1: 20)
+                comments(max: 100, offset: 0) @directive {
+                    body
+                }
+                likes: likesCount @directive
+            }`>;
+
+            type expected = [
+                [
+                    Field<'body', undefined, undefined, undefined, [
+                        Directive<'directive', [
+                            Argument<'arg1', IntLiteral<'20'>>,
+                        ]>,
+                    ]>,
+                    Field<'comments', undefined, [
+                        Argument<'max', IntLiteral<'100'>>,
+                        Argument<'offset', IntLiteral<'0'>>,
+                    ], [
+                        Field<'body', undefined, undefined, undefined, undefined>,
+                    ], [
+                        Directive<'directive'>,
+                    ]>,
+                    Field<'likesCount', 'likes', undefined, undefined, [
+                        Directive<'directive'>,
+                    ]>,
+                ],
+                '',
+            ];
+
             type test = Expect<Equal<actual, expected>>;
         });
 
