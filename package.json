@@ -1,6 +1,6 @@
 {
     "name": "graphql-to-type",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "(almost) Fully functional GraphQL request parser written completely using TypeScript's typing system.",
     "main": "./dist/index.js",
     "exports": {
